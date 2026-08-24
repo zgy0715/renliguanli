@@ -1,0 +1,9 @@
+# 本地 MySQL 运行配置（可选）
+# 用法：mvn spring-boot:run -Dspring-boot.run.profiles=mysql
+# 或：java -jar target/hrms-backend-1.0.0.jar --spring.profiles.active=mysql
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/hrms?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:__PLACEHOLDER__}
+    driver-class-name: com.mysql.cj.jdbc.Driver

@@ -1,0 +1,45 @@
+server:
+  port: 8000
+  # 仅绑定容器本机：CloudStudio 不会将此内部端口映射为公网地址，
+  # 前端 3000 仅通过 Vite 代理访问，杜绝浏览器直连内网端口（触发 PNA）
+  address: ${SERVER_ADDRESS:127.0.0.1}
+
+spring:
+  application:
+    name: hrms-backend
+  # 默认使用 H2 内嵌内存库 —— CloudStudio 无需安装 MySQL 即可一键启动
+  # 本地仍需 MySQL 时，用 profile 运行：mvn spring-boot:run -Dspring-boot.run.profiles=mysql
+  datasource:
+    # NON_KEYWORDS：value/type/level/status 为 H2 保留字，实体中用作列名，须排除以免建表/插入语法错误
+    url: jdbc:h2:mem:hrms;DB_CLOSE_DELAY=-1;MODE=MySQL;NON_KEYWORDS=VALUE,TYPE,LEVEL,STATUS
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+
+hrms:
+  jwt:
+    # HS256 密钥，至少 32 字节
+    secret: ${JWT_SECRET:hrms-demo-secret-key-please-change-in-production-2026}
+    # 过期时间（毫秒），默认 24 小时
+    expire: ${JWT_EXPIRE:86400000}
+    header: Authorization
+    prefix: "Bearer "
+
+logging:
+  level:
+    com.hrms: info
+    org.hibernate.SQL: warn

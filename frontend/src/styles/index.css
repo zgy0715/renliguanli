@@ -1,0 +1,270 @@
+/* =====================================================
+   企业员工管理系统 — 设计令牌与全局样式
+   商务蓝 + 中性灰 | 明暗双主题
+   ===================================================== */
+:root {
+  /* 品牌色板 */
+  --hrms-primary: #2f6bf0;
+  --hrms-primary-light: #5b8cf5;
+  --hrms-primary-dark: #1f4fd0;
+  --hrms-primary-bg: rgba(47, 107, 240, 0.10);
+
+  /* 中性色板（亮色） */
+  --hrms-bg: #f4f6fa;
+  --hrms-bg-subtle: #f7f8fc;
+  --hrms-card: #ffffff;
+  --hrms-border: #e7eaf2;
+  --hrms-border-strong: #d6dae6;
+  --hrms-text-1: #1f2329;
+  --hrms-text-2: #4e5969;
+  --hrms-text-3: #8a93a3;
+
+  /* 语义色 */
+  --hrms-success: #23c17f;
+  --hrms-success-bg: rgba(35, 193, 127, 0.12);
+  --hrms-warning: #f59f00;
+  --hrms-warning-bg: rgba(245, 159, 0, 0.12);
+  --hrms-danger: #f53f3f;
+  --hrms-danger-bg: rgba(245, 63, 63, 0.10);
+  --hrms-info: #7b8aa0;
+
+  /* 几何 */
+  --hrms-radius-sm: 6px;
+  --hrms-radius: 10px;
+  --hrms-radius-lg: 14px;
+  --hrms-shadow: 0 2px 14px rgba(20, 30, 60, 0.06);
+  --hrms-shadow-hover: 0 8px 28px rgba(20, 30, 60, 0.12);
+  --hrms-sidebar-width: 232px;
+
+  /* Element Plus 主色对齐 */
+  --el-color-primary: #2f6bf0;
+  --el-color-primary-light-3: #5b8cf5;
+  --el-color-primary-light-5: #7fa4f7;
+  --el-color-primary-light-7: #a8c0fa;
+  --el-color-primary-light-8: #bcd0fb;
+  --el-color-primary-light-9: #e8effd;
+  --el-color-primary-dark-2: #2558c4;
+
+  /* Element Plus 语义色对齐 */
+  --el-color-success: #23c17f;
+  --el-color-warning: #f59f00;
+  --el-color-danger: #f53f3f;
+  --el-color-info: #7b8aa0;
+  --el-border-radius-base: 8px;
+}
+
+/* 暗色主题 */
+html.dark {
+  --hrms-bg: #0f1015;
+  --hrms-bg-subtle: #17181f;
+  --hrms-card: #1a1c24;
+  --hrms-border: #2a2c37;
+  --hrms-border-strong: #373a48;
+  --hrms-text-1: #e5e7ee;
+  --hrms-text-2: #a4a9b8;
+  --hrms-text-3: #6e7385;
+  --hrms-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+  --hrms-shadow-hover: 0 8px 28px rgba(0, 0, 0, 0.5);
+  --hrms-primary-bg: rgba(47, 107, 240, 0.18);
+
+  --el-bg-color: #1a1c24;
+  --el-bg-color-overlay: #22242e;
+  --el-fill-color-blank: #1a1c24;
+  --el-fill-color-light: #1f212b;
+  --el-fill-color: #262833;
+  --el-border-color: #2a2c37;
+  --el-border-color-light: #262833;
+  --el-border-color-lighter: #242632;
+  --el-text-color-primary: #e5e7ee;
+  --el-text-color-regular: #c4c8d4;
+  --el-text-color-secondary: #8a90a2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei',
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: var(--hrms-text-1);
+  background: var(--hrms-bg);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===== 通用卡片 ===== */
+.hrms-card {
+  background: var(--hrms-card);
+  border: 1px solid var(--hrms-border);
+  border-radius: var(--hrms-radius);
+  box-shadow: var(--hrms-shadow);
+}
+
+.hrms-card--hover:hover {
+  box-shadow: var(--hrms-shadow-hover);
+  transform: translateY(-2px);
+  transition: all 0.25s ease;
+}
+
+/* ===== 页面容器 ===== */
+.page-container {
+  padding: 20px 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--hrms-text-1);
+  margin: 0;
+}
+
+.page-subtitle {
+  font-size: 13px;
+  color: var(--hrms-text-3);
+  margin-top: 4px;
+}
+
+/* ===== KPI 卡片 ===== */
+.kpi-card {
+  background: var(--hrms-card);
+  border: 1px solid var(--hrms-border);
+  border-radius: var(--hrms-radius);
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--hrms-shadow);
+}
+
+.kpi-card__label {
+  font-size: 13px;
+  color: var(--hrms-text-3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.kpi-card__value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--hrms-text-1);
+  margin-top: 8px;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-card__unit {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--hrms-text-3);
+  margin-left: 2px;
+}
+
+.kpi-card__trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  margin-top: 8px;
+  border-radius: 20px;
+  padding: 2px 8px;
+}
+
+.kpi-card__trend--up {
+  color: var(--hrms-success);
+  background: var(--hrms-success-bg);
+}
+
+.kpi-card__trend--down {
+  color: var(--hrms-danger);
+  background: var(--hrms-danger-bg);
+}
+
+/* ===== 滚动条 ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--hrms-border-strong);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ===== 通用工具类 ===== */
+.text-secondary {
+  color: var(--hrms-text-2);
+}
+
+.text-muted {
+  color: var(--hrms-text-3);
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gap-8 {
+  gap: 8px;
+}
+
+.gap-12 {
+  gap: 12px;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+/* 图表容器统一高度 */
+.chart-box {
+  width: 100%;
+  height: 100%;
+}
+
+/* 状态小圆点 */
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}

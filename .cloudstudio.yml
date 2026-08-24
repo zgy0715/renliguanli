@@ -1,0 +1,11 @@
+# CloudStudio 运行与预览配置
+# 说明：run 会真正启动应用（调用 start.sh 一键承载前后端全栈）。
+autoOpen: true # 打开应用时是否自动开启下方 apps 的预览
+
+apps:
+  - port: 3000 # 前端端口（CloudStudio 只对外暴露该端口，后端 8000 走 Vite 代理）
+    run: chmod +x ./start.sh && ./start.sh # 一键启动命令
+    root: / # 应用启动目录（Git 根目录，start.sh 位于根目录）
+    name: hrms-app # 应用名称
+    description: HRMS 人力资源管理系统（前端 3000，后端 8000 经 Vite 代理，Fire 数据 H2） # 应用描述
+    autoOpen: true # 打开应用时自动开启预览

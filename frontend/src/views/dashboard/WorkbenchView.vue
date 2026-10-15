@@ -189,11 +189,11 @@ const DEFAULT_WIDGETS = [
 const widgets = ref<any[]>([])
 let dragIndex = -1
 
-/** 当前角色可见的默认组件：员工无薪酬权限，默认布局不下发「薪酬成本趋势」 */
+/** 当前角色可见的默认组件：员工无薪酬/人员规模等管理端权限，默认布局不下发对应组件 */
 function defaultWidgets() {
   return isCompanyView.value
     ? DEFAULT_WIDGETS
-    : DEFAULT_WIDGETS.filter((w) => w.key !== 'payroll')
+    : DEFAULT_WIDGETS.filter((w) => w.key !== 'payroll' && w.key !== 'headcount')
 }
 
 function loadWidgetOrder() {

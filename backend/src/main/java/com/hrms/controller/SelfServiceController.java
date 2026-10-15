@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/self-service")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyRole('EMPLOYEE','MANAGER','HR','ADMIN')")
+@PreAuthorize("hasRole('EMPLOYEE')")
 public class SelfServiceController {
 
     private final EmployeeRepository employeeRepository;

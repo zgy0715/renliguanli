@@ -75,12 +75,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/assistant/AssistantView.vue'),
         meta: { title: '智能助手', icon: 'MagicStick', roles: ['ADMIN', 'HR', 'MANAGER', 'EMPLOYEE'] },
       },
-      // ===== 员工自助 =====
+      // ===== 员工自助（仅普通员工角色） =====
       {
         path: 'self-service',
         name: 'SelfService',
         component: () => import('@/views/selfservice/SelfServiceView.vue'),
-        meta: { title: '员工自助', icon: 'User', roles: ['ADMIN', 'HR', 'MANAGER', 'EMPLOYEE'] },
+        meta: { title: '员工自助', icon: 'User', roles: ['EMPLOYEE'] },
       },
       // ===== 系统管理 =====
       {

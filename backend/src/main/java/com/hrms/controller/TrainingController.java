@@ -1,6 +1,8 @@
 package com.hrms.controller;
 
 import com.hrms.common.ApiResponse;
+import com.hrms.common.BizException;
+import com.hrms.common.SecurityUtil;
 import com.hrms.domain.training.TrainingCourse;
 import com.hrms.domain.training.TrainingRecord;
 import com.hrms.repository.TrainingCourseRepository;
@@ -28,8 +30,14 @@ public class TrainingController {
         return ApiResponse.ok(courseRepository.findAll());
     }
 
+    /** 学习记录：员工仅可查本人，ADMIN/HR/MANAGER 可按 employeeId 过滤或查全量 */
     @GetMapping("/records")
     public ApiResponse<List<Map<String, Object>>> records(@RequestParam(required = false) Long employeeId) {
+        if ("EMPLOYEE".equals(SecurityUtil.currentUser().role())) {
+            Long selfId = SecurityUtil.currentUser().employeeId();
+            if (selfId == null) throw new BizException(403, "当前账号未绑定员工档案");
+            employeeId = selfId;
+        }
         List<TrainingRecord> records = (employeeId == null)
                 ? recordRepository.findAll()
                 : recordRepository.findByEmployeeIdOrderByEnrolledAtDesc(employeeId);

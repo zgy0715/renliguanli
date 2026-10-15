@@ -46,13 +46,17 @@ public class RecruitmentController {
         return ApiResponse.ok(jobRepository.findAllByOrderByCreatedAtDesc());
     }
 
+    /** 新增候选人仅限管理员 / HR（招聘管理属 HR 职能，主管只读） */
     @PostMapping("/candidates")
+    @PreAuthorize("hasAnyRole('ADMIN','HR')")
     public ApiResponse<Candidate> createCandidate(@RequestBody Candidate candidate) {
         candidate.setCreatedAt(LocalDateTime.now());
         return ApiResponse.ok(candidateRepository.save(candidate));
     }
 
+    /** 推进候选人阶段仅限管理员 / HR */
     @PutMapping("/candidates/{id}/status")
+    @PreAuthorize("hasAnyRole('ADMIN','HR')")
     public ApiResponse<Candidate> updateStatus(@PathVariable Long id, @RequestParam String status) {
         Candidate c = candidateRepository.findById(id).orElseThrow(() -> new BizException("候选人不存在"));
         c.setStatus(status);

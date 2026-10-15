@@ -97,6 +97,7 @@ import { nextTick, onMounted, ref } from 'vue'
 import { ChatLineRound, Delete, MagicStick, RefreshLeft } from '@element-plus/icons-vue'
 import BaseChart from '@/components/BaseChart.vue'
 import { assistantApi } from '@/api'
+import { useAuthStore } from '@/stores/auth'
 import type { AssistantChart, ChatMessage } from '@/types'
 
 const messages = ref<ChatMessage[]>([])
@@ -104,7 +105,8 @@ const question = ref('')
 const loading = ref(false)
 const scrollRef = ref<HTMLElement>()
 
-const starters = [
+/** 快捷提问按角色区分：员工仅展示其有权访问的公司公开信息与个人自助问题 */
+const MANAGEMENT_STARTERS = [
   '现在在职多少人？',
   '各部门人数？',
   '平均薪资多少？',
@@ -112,6 +114,17 @@ const starters = [
   '年龄结构分布？',
   '人才盘点九宫格？',
 ]
+const EMPLOYEE_STARTERS = [
+  '现在在职多少人？',
+  '我的考勤怎样？',
+  '我的工资条',
+  '我的绩效',
+  '有哪些培训课程？',
+]
+const authStore = useAuthStore()
+const starters = computed(() =>
+  ['ADMIN', 'HR', 'MANAGER'].includes(authStore.user?.role || '') ? MANAGEMENT_STARTERS : EMPLOYEE_STARTERS,
+)
 
 /** 把后端返回的图表结构转成 ECharts option */
 function toEchartsOption(chart: AssistantChart): Record<string, unknown> {
